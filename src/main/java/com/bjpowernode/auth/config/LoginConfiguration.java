@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class LoginConfiguration implements WebMvcConfigurer {
 
-    @Bean
+   /* @Bean
     public LoginInterceptor loginInterceptor(){
         return new LoginInterceptor();
     }
@@ -33,5 +33,5 @@ public class LoginConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/css/*")
                 .excludePathPatterns("/imgs/*")
                 .excludePathPatterns("/js/**");//排除路径
-    }
+    }*/
 }

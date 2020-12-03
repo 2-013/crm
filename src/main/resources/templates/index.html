@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<shiro:principal property="userName"/>
 <head>
 <meta charset="UTF-8">
 
@@ -138,7 +139,9 @@
 			<ul>
 				<li class="dropdown user-dropdown">
 					<a href="javascript:void(0)" style="text-decoration: none; color: white;" class="dropdown-toggle" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-user"></span>  <span class="caret"></span>
+						<span class="glyphicon glyphicon-user"></span>
+						<shiro:principal property="userName"></shiro:principal>
+						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="javascript:void(0)" data-toggle="modal" data-target="#myInformation"><span class="glyphicon glyphicon-file"></span> 我的资料</a></li>

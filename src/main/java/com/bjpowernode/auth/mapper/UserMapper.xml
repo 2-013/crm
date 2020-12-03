@@ -113,5 +113,8 @@
     select user_id, user_name, user_img, user_age, user_sex
      from t_user where user_name=#{userName} and user_pwd=#{userPwd}
   </select>
+    <select id="selectByName" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"/> from t_user where user_name=#{username}
+    </select>
 
 </mapper>

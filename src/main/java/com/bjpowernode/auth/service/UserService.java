@@ -22,4 +22,7 @@ public interface UserService {
     void saveUpdate(User user);
 
     User queryUserByPwd(User user);
+
+    User queryUserByName(String username);
+
 }

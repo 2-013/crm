@@ -19,6 +19,8 @@ public class User {
 
     private List<Integer> roleIds;
 
+    private String msg;
+
     public Integer getUserId() {
         return userId;
     }
@@ -81,5 +83,13 @@ public class User {
 
     public void setRoleIds(List<Integer> roleIds) {
         this.roleIds = roleIds;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

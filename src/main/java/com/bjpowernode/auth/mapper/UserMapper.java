@@ -25,4 +25,6 @@ public interface UserMapper {
 
     User selectByPwd(@Param("userName") String userName,@Param("userPwd") String userPwd);
 
+    User selectByName(String username);
+
 }

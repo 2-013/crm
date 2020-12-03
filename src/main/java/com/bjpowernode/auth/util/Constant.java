@@ -12,6 +12,9 @@ public class Constant {
     /**登录用户 */
     public static final String LOGIN_USER = "LOGIN_USER";
 
+    /**登录提示 */
+    public static final String LOGIN_MSG = "LOGIN_MSG";
+
     /** 角色权限*/
     public static final String ROLE_AUTH="ROLE_AUTH";
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+        >
+
+    <!-- 注入realm对象,此类中含了登录鉴权和访问授权两项权限检查 -->
+    <bean id="realm" class="com.bjpowernode.auth.util.shiro.Realm"/>
+
+    <!-- 安全管理器 （将用户交给shiro去管理登录与授权） -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm">
+            <ref bean="realm" />
+        </property>
+    </bean>
+
+    <!-- 安全管理过滤器，主要负责用户授权  -->
+    <bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 登录地址 -->
+        <property name="loginUrl" value="/login"></property>
+        <!-- 登录成功后跳转 -->
+        <property name="successUrl" value="/index/home"></property>
+        <!-- 未授权的错误页面 -->
+        <property name="unauthorizedUrl" value="/no_auth"></property>
+        <!-- 引用 安全管理器 -->
+        <property name="securityManager" ref="securityManager"></property>
+        <!-- 用户权限配置 -->
+
+        <property name="filterChainDefinitionMap">
+            <map>    <!--
+       <entry key="/login">
+          表示可以匿名访问
+         <value>anon</value>
+      </entry> -->
+                <entry key="/saveLogin">
+                    <value>anon</value>
+                </entry>
+
+                <entry key="/error">
+                    <value>anon</value>
+                </entry>
+
+                <entry key="/imgs/**">
+                    <value>anon</value>
+                </entry>
+
+                <entry key="/js/**">
+                    <value>anon</value>
+                </entry>
+
+                <entry key="/student/list">
+                    <!--  perms权限 ,roles角色 -->
+                    <value>perms[student_list]</value>
+                </entry>
+
+                <entry key="/static">
+                    <value>perms[static]</value>
+                </entry>
+
+                <entry key="/upload">
+                    <value>perms[upload]</value>
+                </entry>
+
+                <entry key="/bank/transfer">
+                    <value>perms[bank_transfer]</value>
+                </entry>
+
+                <entry key="/**">
+                    <!-- 表示需要登录才可以访问  -->
+                    <value>authc</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 添加shiro在thymeleaf当中的标签支持 -->
+    <bean class="at.pollux.thymeleaf.shiro.dialect.ShiroDialect"/>
+
+
+
+
+</beans>
