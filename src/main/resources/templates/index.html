@@ -169,7 +169,20 @@
 
 				<li class="liClass"><a th:href="@{/role/list}" target="workareaFrame"><span class="glyphicon glyphicon-book"></span> 角色管理</a></li>
 
-				<li class="liClass"><a th:href="@{/activity/list}" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 市场活动</a></li>
+					<li class="liClass"><a th:href="@{/LoginLook}" target="workareaFrame"><span class="glyphicon glyphicon-book"></span> 登录才可见</a></li>
+
+				<shiro:authenticated>
+					<li class="liClass"><a th:href="@{/role/list}" target="workareaFrame"><span class="glyphicon glyphicon-book"></span> 第二条</a></li>
+				</shiro:authenticated>
+				<li class="liClass"><a th:href="@{/role/list}" target="workareaFrame"><span class="glyphicon glyphicon-book"></span> 第三条</a></li>
+
+
+				<shiro:hasPermission name="activity_list">
+					<li class="liClass"><a th:value="" th:href="@{/activity/list}" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 市场活动</a></li>
+
+					<input value="具有指定权限才会显示" />
+				</shiro:hasPermission>
+
 				<!--
 				<li class="liClass"><a href="clue/list.html" target="workareaFrame"><span class="glyphicon glyphicon-search"></span> 线索（潜在客户）</a></li>
 

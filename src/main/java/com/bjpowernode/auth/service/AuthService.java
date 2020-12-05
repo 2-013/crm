@@ -24,4 +24,7 @@ public interface AuthService {
     void saveUpdate(Auth auth);
 
     List<Auth> queryByUserId(Integer userId);
+
+    /**登录本身的权限和所拥有角色的权限 */
+    List<Auth> queryAllAuthByUserId(Integer userId);
 }

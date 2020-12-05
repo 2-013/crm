@@ -6,6 +6,7 @@ import com.bjpowernode.auth.util.Constant;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    PasswordService passwordService;
+
     @RequestMapping("login")
     public void login(){
 
@@ -34,10 +38,11 @@ public class LoginController {
     }
 
     @RequestMapping("/saveLogin")
-    public String saveLogin(User user){
+    public String saveLogin(User user,String remeber){
 
         //构建一个由用户名和密码组成的对象，我们称这个对象为令牌
         UsernamePasswordToken up = new UsernamePasswordToken(user.getUserName(), user.getUserPwd().toCharArray());
+        up.setRememberMe("1".equals(remeber));
 
         try {
             //Subject一般指登录人,不一定是一个具体的人，与当前应用交互的任何东西都是 Subject，如网络爬虫，机器人等

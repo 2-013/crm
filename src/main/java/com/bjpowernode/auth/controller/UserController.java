@@ -2,10 +2,12 @@ package com.bjpowernode.auth.controller;
 
 import com.bjpowernode.auth.model.*;
 import com.bjpowernode.auth.service.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +120,8 @@ public class UserController {
 
     /**更新员工角色，权限 */
     @RequestMapping("/saveAuth")
-    public String saveAuth(User user, int[] authIds,int[] roleIds){
+    public String saveAuth(User user, @RequestParam(value = "authIds",required = false) int[] authIds,
+                           @RequestParam(value = "roleIds",required = false) int[] roleIds){
 
         userService.saveUpdate(user);
         userAuthService.saveUserAuthIds(user.getUserId(),authIds);
@@ -126,6 +129,8 @@ public class UserController {
         System.out.println("-------------更新员工角色，权限------------");
         return "redirect:list";
     }
+
+
 
 
 }

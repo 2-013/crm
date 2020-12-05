@@ -3,6 +3,7 @@ package com.bjpowernode.auth.service;
 import com.bjpowernode.auth.mapper.UserMapper;
 import com.bjpowernode.auth.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.credential.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    PasswordService passwordService;
 
     @Override
     public List<User> queryAllUser() {
@@ -41,12 +45,14 @@ public class UserServiceImpl implements UserService {
     /**员工更新保存 */
     @Override
     public void saveUpdate(User user) {
+        user.setUserPwd(passwordService.encryptPassword(user.getUserPwd()));
         userMapper.updateByPrimaryKeySelective(user);
     }
 
     /**查询登录用户是否存在 */
     @Override
     public User queryUserByPwd(User user) {
+        user.setUserPwd(passwordService.encryptPassword(user.getUserPwd()));
         return userMapper.selectByPwd(user.getUserName(),user.getUserPwd());
     }
 

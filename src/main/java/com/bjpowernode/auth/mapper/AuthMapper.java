@@ -28,4 +28,7 @@ public interface AuthMapper {
 
     /**左外联接查询所有的用户权限 */
     List<Auth> queryByUserId(Integer userId);
+
+    /**登录本身的权限和所拥有角色的权限 */
+    List<Auth> selectAllAuthByUserId(Integer userId);
 }

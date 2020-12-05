@@ -110,5 +110,21 @@
         where ua.user_id=#{userId}
     </select>
 
+  <!--登录本身的权限和所拥有角色的权限 -->
+    <select id="selectAllAuthByUserId" resultMap="BaseResultMap">
+        <!--查找用户本身的权限 -->
+        select a.auth_code,a.auth_url  from t_auth a,t_user_auth ua where ua.auth_id=a.auth_id
+        and ua.user_id = #{userId}
+
+        UNION
+
+        <!--查找用户所拥有角色的权限 -->
+        select a.auth_code,a.auth_url from t_user_role ur left join  t_role r on ur.role_id = r.role_id
+        left join t_role_auth ra  on ra.role_id=r.role_id
+        left join t_auth a on a.auth_id=ra.auth_id
+        where ur.user_id = #{userId}
+
+    </select>
+
 
 </mapper>

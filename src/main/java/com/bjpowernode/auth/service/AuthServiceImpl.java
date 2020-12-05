@@ -59,5 +59,11 @@ public class AuthServiceImpl implements AuthService {
         return authMapper.queryByUserId(userId);
     }
 
+    /**登录本身的权限和所拥有角色的权限 */
+    @Override
+    public List<Auth> queryAllAuthByUserId(Integer userId) {
+        return authMapper.selectAllAuthByUserId(userId);
+    }
+
 
 }

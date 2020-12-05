@@ -1,13 +1,19 @@
 package com.bjpowernode.auth.util.shiro;
 
+import com.bjpowernode.auth.model.Auth;
 import com.bjpowernode.auth.model.User;
+import com.bjpowernode.auth.service.AuthService;
 import com.bjpowernode.auth.service.UserService;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @program: springboot_auth
@@ -21,10 +27,27 @@ public class Realm extends AuthorizingRealm {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AuthService authService;
+
     /**权限认证 */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+
+        //为当前用户添加权限，使之能够访问相关路径
+        //authorizationInfo.addStringPermission("user_list");
+
+        //取出当前登录用户，并查其所本身的权限和所拥有角色的权限
+        User user = (User)SecurityUtils.getSubject().getPrincipal();
+        List<Auth> authList = authService.queryAllAuthByUserId(user.getUserId());
+
+        //遍历所有的可访问权限，并将编码放入authorizationInfo
+        for(Auth auth : authList){
+            authorizationInfo.addStringPermission(auth.getAuthCode());
+        }
+
+        return authorizationInfo;
     }
 
     /**登录验证 */

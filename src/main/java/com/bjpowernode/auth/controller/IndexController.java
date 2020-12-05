@@ -1,5 +1,6 @@
 package com.bjpowernode.auth.controller;
 
+import com.bjpowernode.auth.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,6 +25,13 @@ public class IndexController {
     /**跳转工作台*/
     @RequestMapping("/right")
     public void right(){
+    }
+
+    /**员工无权限跳转页面 */
+    @RequestMapping("/no_auth")
+    public String noAuth(){
+        System.out.println("-------------员工无权限跳转页面------------");
+        return "noAuth";
     }
 
 
